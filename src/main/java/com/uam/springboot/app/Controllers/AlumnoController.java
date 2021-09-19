@@ -63,6 +63,25 @@ public class AlumnoController {
 	}
 	
 	/**
+	 * Metodo para consultar un alumno por MAtricula
+	 * */
+	@GetMapping("/alumnos/fotos/{matricula}")
+	public Alumno findByMatricula(@PathVariable final String matricula) {
+		return alumnoRepository.consultaPorMatricula(matricula);
+		//return alumnoRepository.findByMAT(matricula);
+	}
+	
+	/**
+	 * Metodo para renombrar las fotografias
+	 * */
+	@GetMapping("/alumnos/fotos/cambio-nombre")
+	public void findByMatricula() {
+		System.out.println("Controlador");
+		 alumnoRepository.cambiaNombreFotos();
+		//return alumnoRepository.findByMAT(matricula);
+	}
+	
+	/**
 	 * Metodo para actulizar un registro en la BD de manera
 	 * basado en su ID y es parcialmente
 	 * @throws SecurityException 
@@ -105,6 +124,11 @@ public class AlumnoController {
 	@GetMapping("/alumnos/carrera-nombre/{carrera}")
 	public List<Alumno> findByCarrera(@PathVariable final String carrera){
 		return null;
+	}
+	
+	@GetMapping("/alumnos/lista/sexo-edad-lic/{plan}/{trimestre}")
+	public List<Alumno> listaSexoEdadLic(@PathVariable String plan, @PathVariable String trimestre){
+		return alumnoRepository.consultaPorCarreraTrimestre(plan, trimestre);
 	}
 	
 	

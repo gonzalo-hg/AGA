@@ -1,6 +1,8 @@
 package com.uam.springboot.app.Repositories;
 
 
+import java.util.List;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.uam.springboot.app.Entidad.Alumno;
@@ -15,4 +17,6 @@ public interface AlumnoRepository extends MongoRepository<Alumno, String>,Custom
 	 * */
 	/*@Query("{ 'carrera' : { $regex: ?0} }")
 	public List<Alumno> findByCarrera(String regex);*/
+	
+	public Alumno findByMAT(String matricula);
 }

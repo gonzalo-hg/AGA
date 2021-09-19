@@ -12,5 +12,9 @@ public interface CustomAlumnoRepository {
 	
 	public List<Alumno> clasificacionSexo(final String plan, final String sexo,final String trimestre);
 	
+	public List<Alumno> consultaPorCarreraTrimestre(final String plan, final String trimestre);
 	
+	public Alumno consultaPorMatricula(final String matricula);
+	
+	public void cambiaNombreFotos();
 }

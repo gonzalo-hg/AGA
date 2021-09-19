@@ -1,7 +1,9 @@
 package com.uam.springboot.app.Entidad;
 
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 
 @Document(collection = "Alumnos")
 public class Alumno {

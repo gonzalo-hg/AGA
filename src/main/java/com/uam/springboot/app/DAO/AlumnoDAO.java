@@ -27,8 +27,11 @@ public class AlumnoDAO {
 		return mongoTemplate.findById(alumnoId,Alumno.class);
 	}
 	
+	/*public Alumno findByMatricula(@PathVariable final String matricula) {
+		return null;
+	}
 	
-	/*public Alumno updateAlumno(String alumnoId,String fieldname, Object fieldValue) {
+	public Alumno updateAlumno(String alumnoId,String fieldname, Object fieldValue) {
 		return mongoTemplate.findAndModify(BasicQuery.query(Criteria.where(alumnoId)), 
 				BasicUpdate.update(fieldname,fieldValue), 
 				FindAndModifyOptions.none(),Alumno.class);
