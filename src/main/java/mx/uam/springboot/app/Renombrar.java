@@ -1,4 +1,4 @@
-package com.uam.springboot.app;
+package mx.uam.springboot.app;
 
 import java.io.File;
 import java.util.ArrayList;

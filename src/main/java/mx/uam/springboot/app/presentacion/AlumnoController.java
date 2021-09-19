@@ -1,4 +1,4 @@
-package com.uam.springboot.app.Controllers;
+package mx.uam.springboot.app.presentacion;
 
 
 import java.lang.reflect.Field;
@@ -15,43 +15,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uam.springboot.app.Repositories.AlumnoRepository;
-import com.uam.springboot.app.DAO.AlumnoDAO;
-import com.uam.springboot.app.Entidad.Alumno;
+import mx.uam.springboot.app.datos.AlumnoRepository;
+import mx.uam.springboot.app.negocio.ServicioAlumno;
+import mx.uam.springboot.app.negocio.modelo.Alumno;
+import mx.uam.springboot.app.negocio.modelo.dto.AlumnoDto;
 
 @RestController
 public class AlumnoController {
+	
+	@Autowired
+	private ServicioAlumno servicioAlumno;
 
-	@Autowired
-	private AlumnoRepository alumnoRepository;
-	
-	@Autowired
-	private AlumnoDAO alumnoDao;
-	
-	@Autowired
-	private MongoTemplate mongoTemplate;
-	
-	
 	/**
 	 * Metodo para agregar alumnos a la BD
 	 * */
 	@PostMapping("/alumnos")
 	public void agregarAlumno(@RequestBody final List<Alumno> alumno){
-		alumnoDao.saveAll(alumno);
+		servicioAlumno.saveAll(alumno);
 	}
-	
-	
+
 	/**
 	 * Metodo para consultar todos los alumnos en la BD
 	 * */
 	@GetMapping("/alumnos")
 	public List<Alumno> mostrarProductos(){
-		return alumnoDao.findAll();	
-	}
-	
-	@GetMapping("/alumnosTemplate")
-	public List<Alumno> Alumnos(){
-		return mongoTemplate.findAll(Alumno.class);
+		return servicioAlumno.findAll();	
 	}
 	
 	/**
@@ -59,7 +47,7 @@ public class AlumnoController {
 	 * */
 	@GetMapping("/alumnos/{alumnoId}")
 	public Alumno findAlumno(@PathVariable final String alumnoId) {
-		return alumnoDao.findById(alumnoId);
+		return servicioAlumno.findById(alumnoId);
 	}
 	
 	/**
@@ -67,7 +55,7 @@ public class AlumnoController {
 	 * */
 	@GetMapping("/alumnos/fotos/{matricula}")
 	public Alumno findByMatricula(@PathVariable final String matricula) {
-		return alumnoRepository.consultaPorMatricula(matricula);
+		return servicioAlumno.consultaPorMatricula(matricula);
 		//return alumnoRepository.findByMAT(matricula);
 	}
 	
@@ -77,7 +65,7 @@ public class AlumnoController {
 	@GetMapping("/alumnos/fotos/cambio-nombre")
 	public void findByMatricula() {
 		System.out.println("Controlador");
-		 alumnoRepository.cambiaNombreFotos();
+		servicioAlumno.cambiaNombreFotos();
 		//return alumnoRepository.findByMAT(matricula);
 	}
 	
@@ -102,7 +90,7 @@ public class AlumnoController {
 			
 			if(Objects.nonNull(valorCampo)) {
 				
-				alumnoRepository.UpdateAlumno(alumnoId, fieldname, valorCampo);
+				servicioAlumno.UpdateAlumno(alumnoId, fieldname, valorCampo);
 			}
 		}
 	}
@@ -110,62 +98,21 @@ public class AlumnoController {
 	@GetMapping("/alumnos/lista/{plan}/{sexo}/{trimestre}")
 	public List<Alumno> clasificacionEdadSexoCarrera(@PathVariable final String plan,
 			@PathVariable final String sexo,@PathVariable final String trimestre){
-		System.out.println(alumnoRepository.clasificacionSexo(plan,sexo,trimestre));
-				return alumnoRepository.clasificacionSexo(plan,sexo,trimestre);
+		System.out.println(servicioAlumno.clasificacionSexo(plan,sexo,trimestre));
+				return servicioAlumno.clasificacionSexo(plan,sexo,trimestre);
 	}
 	
 	@GetMapping(path = "/alumnos/lista/{plan}")
 	public List<Alumno> clasificacionEdadSexoCarrera2(@PathVariable final String plan,
 			@RequestBody final String sexo,@RequestBody final String trimestre ){
-		System.out.println(alumnoRepository.clasificacionSexo(plan,sexo,trimestre));
-				return alumnoRepository.clasificacionSexo(plan,sexo,trimestre);
-	}
-	
-	@GetMapping("/alumnos/carrera-nombre/{carrera}")
-	public List<Alumno> findByCarrera(@PathVariable final String carrera){
-		return null;
+		System.out.println(servicioAlumno.clasificacionSexo(plan,sexo,trimestre));
+				return servicioAlumno.clasificacionSexo(plan,sexo,trimestre);
 	}
 	
 	@GetMapping("/alumnos/lista/sexo-edad-lic/{plan}/{trimestre}")
-	public List<Alumno> listaSexoEdadLic(@PathVariable String plan, @PathVariable String trimestre){
-		return alumnoRepository.consultaPorCarreraTrimestre(plan, trimestre);
+	public List<AlumnoDto> listaSexoEdadLic(@PathVariable String plan, @PathVariable String trimestre){
+		System.out.println(servicioAlumno.consultaPorCarreraTrimestre(plan, trimestre));
+		return servicioAlumno.consultaPorCarreraTrimestre(plan, trimestre);
 	}
-	
-	
-	/*@GetMapping("/alumnos/lista/{NOM}")
-	public List<Alumno> findByNombre(@PathVariable final String nombre) {
-		return alumnoRepository.findByNombre(nombre);
-	}*/
-	
-	/*@GetMapping("/alumnos/carrera-nombre/{carrera}")
-	public List<Alumno> findByCarrera(@PathVariable final String carrera){
-		return alumnoRepository.findByCarrera(carrera);
-	}*/
-	
-	/*@GetMapping("/alumnos/carrera-nombre2/{carrera}")
-	public List<Alumno>findByCarrera2(@PathVariable final String carrera){
-		return alumnoRepository.findByCarrera2(carrera);
-	}*/
-	
-	/*@PatchMapping("/alumnos/")
-	public void UpdateAlumnos(@PathVariable final String alumnoId,
-			@RequestBody final Alumno alumno) throws Exception {
-		for(final Field campo : Alumno.class.getDeclaredFields()) {
-			final String fieldname = campo.getName();
-			
-			if(fieldname.equals("id")) {
-				continue;
-			}
-			
-			final java.lang.reflect.Method getter = Alumno.class.getDeclaredMethod( "get"+StringUtils.capitalize(fieldname));
-			final  Object valorCampo = getter.invoke(alumno);
-			
-			if(Objects.nonNull(valorCampo)) {
-				
-				alumnoRepository.UpdateAlumno(alumnoId, fieldname, valorCampo);
-			}
-		}
-	}*/
-	
 	
 }

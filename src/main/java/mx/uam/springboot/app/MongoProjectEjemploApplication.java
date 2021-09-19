@@ -1,4 +1,4 @@
-package com.uam.springboot.app;
+package mx.uam.springboot.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
