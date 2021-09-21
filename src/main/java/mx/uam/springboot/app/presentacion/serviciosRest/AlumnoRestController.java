@@ -65,10 +65,19 @@ public class AlumnoRestController {
 	 * @param trimestre El último trimestre de reinscripción de los alumnos a consultar
 	 * @return Una lista con todos los alumnos cuyo atributo PLA=plan y UT_RE=trimestre
 	 */
-	@GetMapping("/alumnos/plan/{plan}/trimestre/{trimestre}")
+	@GetMapping("/alumnos?plan={plan}&trimestre=20P&sexo=M")
 	public List<AlumnoDto> findByPlanAndTrimestre(@PathVariable String plan, @PathVariable String trimestre){
 		return alumnoService.findByPlanAndTrimestre(plan, trimestre);
 	}
+	
+	/*
+	@GetMapping(path = "/hotels/{hotelCode}/prices", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultListDto <HotelPrices>> retrievePrices(@PathVariable(
+			"hotelCode") String hotelCode,
+			@ApiParam(name = "startDate", value = "Date yyyy-mm-dd", defaultValue = "2020-01-01", required=true)
+			@RequestParam(required = true) String startDate,
+			@ApiParam(name = "endDate", value = "Date yyyy-mm-dd", defaultValue = "2020-01-01", required=false)
+			@RequestParam(required = fa*/
 	
 	/**
 	 * Endpoint para realizar una petición GET

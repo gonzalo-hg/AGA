@@ -15,17 +15,17 @@ import org.pentaho.di.trans.TransMeta;
 public class MongoProjectEjemploApplication {
 
 	public static void main(String[] args) throws KettleException  {
-		
-		/*StepPluginType.getInstance().getPluginFolders().add(new PluginFolder(
-				"pentaho", false, true));
+		SpringApplication.run(MongoProjectEjemploApplication.class, args);
+		//StepPluginType.getInstance().getPluginFolders()
+		//		.add(new PluginFolder("/plugins", false, true));
 		StepPluginType.getInstance().getPluginFolders()
 				.add(new PluginFolder("classes", false, true));
 		StepPluginType.getInstance().getPluginFolders()
 				.add(new PluginFolder("libswt", false, true));
 		StepPluginType.getInstance().getPluginFolders()
-		.add(new PluginFolder("plugins", false, true));
+				.add(new PluginFolder("pentaho", false, true));
 		KettleEnvironment.init();
-		TransMeta transMeta = new TransMeta("testAga.ktr");
+		TransMeta transMeta = new TransMeta("transform2.ktr");
 		Trans trans = new Trans(transMeta);
 		trans.setLogLevel(LogLevel.ERROR);
 		trans.execute(null);
@@ -33,8 +33,8 @@ public class MongoProjectEjemploApplication {
 
 		if (trans.getErrors() > 0) {
 			System.out.println("Ocurrio un error");
-		}*/
-		SpringApplication.run(MongoProjectEjemploApplication.class, args);
+		}
+		
 	}
 
 }

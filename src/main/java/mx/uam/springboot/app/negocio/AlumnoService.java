@@ -16,20 +16,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import mx.uam.springboot.app.datos.AlumnoRepository;
 import mx.uam.springboot.app.negocio.modelo.Alumno;
 import mx.uam.springboot.app.negocio.modelo.dto.AlumnoDto;
 
 @Service
 public class AlumnoService {
-	
-	@Autowired
-	private AlumnoRepository alumnoRepository;
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
 	//METODOS GET
+	
 	
 	/**
 	 * Consulta a un alumno por id
@@ -151,6 +148,7 @@ public class AlumnoService {
 	
 	//OTROS
 	
+
 	public void cambiaNombreFotos() {
 		System.out.println("Entro cambioNombreFotos");
 		Query query = new Query();
