@@ -6,21 +6,23 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.uam.springboot.app.datos.AlumnoRepository;
 import mx.uam.springboot.app.negocio.AlumnoService;
 import mx.uam.springboot.app.negocio.modelo.Alumno;
 import mx.uam.springboot.app.negocio.modelo.dto.AlumnoDto;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200/")
+@RequestMapping("/api")
 public class AlumnoRestController {
 	
 	@Autowired
@@ -132,17 +134,21 @@ public class AlumnoRestController {
 		}
 	}
 	
+	@GetMapping("/alumnos/solo")
+	public List<Alumno> buscaUno() {
+		return alumnoService.consultaAlumno();
+	}
 	
 	//OTROS
 	
 	/**
 	 * Metodo para renombrar las fotografias
-	 * */
+	 * 
 	@GetMapping("/alumnos/fotos/cambio-nombre")
 	public void findByMatricula() {
 		alumnoService.cambiaNombreFotos();
 		//return alumnoRepository.findByMAT(matricula);
 	}
-	
+	*/
 	
 }
