@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.uam.springboot.app.negocio.AlumnoService;
@@ -21,8 +22,9 @@ import mx.uam.springboot.app.negocio.modelo.Alumno;
 import mx.uam.springboot.app.negocio.modelo.dto.AlumnoDto;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/")
+//@CrossOrigin(origins = "http://localhost:4200/")
 @RequestMapping("/api")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class AlumnoRestController {
 	
 	@Autowired
@@ -47,7 +49,7 @@ public class AlumnoRestController {
 	 * @return El alumno cuya MAT=matricula si existe, null en caso contrario
 	 */
 	@GetMapping("/alumnos/matricula/{matricula}")
-	public Alumno findByMatricula(@PathVariable final String matricula) {
+	public Alumno findByMatricula(@PathVariable final long matricula) {
 		return alumnoService.findByMatricula(matricula);
 		//return alumnoRepository.findByMAT(matricula);
 	}
@@ -89,7 +91,7 @@ public class AlumnoRestController {
 	 * @return Una lista con todos los alumnos cuyos atributos PLA=plan, SEXO=sexo y UT_RE=trimestre
 	 */
 	@GetMapping("/alumnos/plan/{plan}/trimestre/{trimestre}/sexo/{sexo}")
-	public List<Alumno> findByPlanAndSexoAndTrimestre(@PathVariable final String plan,
+	public List<Alumno> findByPlanAndSexoAndTrimestre(@PathVariable final long plan,
 			@PathVariable final String sexo,@PathVariable final String trimestre){
 				return alumnoService.findByPlanAndSexoAndTrimestre(plan,sexo,trimestre);
 	}
@@ -104,6 +106,7 @@ public class AlumnoRestController {
 	public void agregarAlumno(@RequestBody final List<Alumno> alumno){
 		alumnoService.saveAll(alumno);
 	}
+	
 	
 	
 	//PETICIONES PATCH
@@ -143,6 +146,7 @@ public class AlumnoRestController {
 	
 	/**
 	 * Metodo para renombrar las fotografias
+<<<<<<< HEAD
 	 * 
 	@GetMapping("/alumnos/fotos/cambio-nombre")
 	public void findByMatricula() {
