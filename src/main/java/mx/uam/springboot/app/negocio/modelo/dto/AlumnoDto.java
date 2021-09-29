@@ -8,9 +8,9 @@ import mx.uam.springboot.app.negocio.modelo.Alumno;
 */
 @Data
 public class AlumnoDto {
-	private String matricula;
-	private String plan; // No vacío, no numérico
-	private String edad; // No vacío
+	private long matricula;
+	private long plan; // No vacío, no numérico
+	private long edad; // No vacío
 	private String nombre; // Rango entre 1 - 120
 	private String ape_pat; // No vacío
 	private String ape_mat; // No vacío

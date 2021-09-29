@@ -1,10 +1,9 @@
 package mx.uam.springboot.app.negocio;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FilenameUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -12,7 +11,6 @@ import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.BasicUpdate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -42,7 +40,7 @@ public class AlumnoService {
 	 * @param matricula La matrícula del alumno a consultar
 	 * @return El alumno cuya MAT=matricula si existe, null en caso contrario
 	 */
-	public Alumno findByMatricula(String matricula) {
+	public Alumno findByMatricula(long matricula) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("MAT").is(matricula));
 		query.fields().include("MAT","PATE","MATE","NOM");
@@ -100,7 +98,7 @@ public class AlumnoService {
 	 * @param trimestre El último trimestre de reinscripción de los alumnos a consultar
 	 * @return Una lista con todos los alumnos cuyos atributos PLA=plan, SEXO=sexo y UT_RE=trimestre
 	 */
-	public List<Alumno> findByPlanAndSexoAndTrimestre(String plan,String sexo,String trimestre) {
+	public List<Alumno> findByPlanAndSexoAndTrimestre(long plan,String sexo,String trimestre) {
 		Query query = new Query();
 		//query.addCriteria(Criteria.where("PLA").is(plan).and("SEXO").is(sexo));
 		//query = BasicQuery.query(Criteria.where("PLA").is(plan).and("SEXO").is(sexo));
@@ -110,11 +108,8 @@ public class AlumnoService {
 				Criteria.where("UT_RE").is(trimestre)
 				));
 		//Query query = new BasicQuery("{$and: [{'SEXO': 'M'},{'PLA':'52'}]}");
-		query.fields().include("NOM","MAT","EDAD");
+		query.fields().include("MAT","PLA","EDAD","PATE","MATE","NOM","SEXO");
 		List<Alumno> alumonosCoincidentes = mongoTemplate.find(query,Alumno.class);
-		for (Alumno alumno : alumonosCoincidentes) {
-			System.out.println(alumno.getMAT() + " " + alumno.getEDAD()+ " " +alumno.getNOM());
-		}
 		System.out.println("Tamaño de la consulta: " + alumonosCoincidentes.size());
 		return alumonosCoincidentes;
 	}
@@ -131,6 +126,7 @@ public class AlumnoService {
 	}
 	
 	
+
 	//METODOS UPDATE/PATCH
 	
 	/**
@@ -148,7 +144,7 @@ public class AlumnoService {
 	
 	//OTROS
 	
-
+/*
 	public void cambiaNombreFotos() {
 		System.out.println("Entro cambioNombreFotos");
 		Query query = new Query();
@@ -187,5 +183,5 @@ public class AlumnoService {
 		
 	}
 	
-	
+	*/
 }

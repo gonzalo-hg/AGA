@@ -6,17 +6,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
+
 @Data
-@Document(collection = "Alumnos")
+@Document(collection = "alumnos")
 public class Alumno {
 	@Id
 	private String id;
 	
-	private String MAT;
+	private long MAT; 
 	private String UNI;
 	private String DIV;
 	private String NIV;
-	private String PLA;
+	private long PLA;
 	private String ARE;
 	private String RFC;
 	private String CAU;
@@ -50,7 +51,7 @@ public class Alumno {
 	private String ESC; //"ESC": "2",
 	private String PROM;
 	private String FNA;
-	private String EDAD;
+	private long EDAD;
 	private String SEXO;
 	private String PUNTAJE;
 	private String TEL;
@@ -76,9 +77,9 @@ public class Alumno {
 	private String CRE_MIN;// "CRE_MIN": "4
 	private String CRE_MAX;//"CRE_MAX": "456",
 	private String TRI_CMINCU;//"TRI_CMINCU": "92O",
-	private String   PATE;
-	private String   MATE;
-	private String  NOM;
+	private String PATE;
+	private String MATE;
+	private String NOM;
 	private String CALLE;
 	private String COLONIA;
 	private String CODIGOP;
